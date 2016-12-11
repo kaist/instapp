@@ -1,0 +1,116 @@
+{
+    "author": "igor.kaist@gmail.com",
+    "dependencies": {},
+    "keywords": [],
+    "name": "instapp",
+    "pebble": {
+        "capabilities": [
+            "configurable"
+        ],
+        "displayName": "InstAPP",
+        "enableMultiJS": true,
+        "messageKeys": [
+            "state",
+            "lenght",
+            "chunk",
+            "chunksize",
+            "index",
+            "complete",
+            "update",
+            "username",
+            "is_like",
+            "likes",
+            "dates",
+            "sendlike",
+            "captions",
+            "pages"
+        ],
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "file": "images/applogo.png",
+                    "menuIcon": true,
+                    "name": "APP_LOGO",
+                    "targetPlatforms": [
+                        "aplite",
+                        "basalt"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/right.png",
+                    "name": "ICON_ACTION",
+                    "targetPlatforms": [
+                        "aplite",
+                        "basalt"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/error.png",
+                    "name": "ICON_ERROR",
+                    "targetPlatforms": [
+                        "aplite",
+                        "basalt"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/loading.png",
+                    "name": "ICON_LOADING",
+                    "targetPlatforms": [
+                        "aplite",
+                        "basalt"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/sync.png",
+                    "name": "ICON_SYNC",
+                    "targetPlatforms": [
+                        "aplite",
+                        "basalt"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/empty.png",
+                    "name": "ICON_EMPTY",
+                    "targetPlatforms": [
+                        "aplite",
+                        "basalt"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/down.png",
+                    "name": "ICON_DOWN",
+                    "targetPlatforms": [
+                        "aplite",
+                        "basalt"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/up.png",
+                    "name": "ICON_UP",
+                    "targetPlatforms": [
+                        "aplite",
+                        "basalt"
+                    ],
+                    "type": "bitmap"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "basalt"
+        ],
+        "uuid": "35a32c7e-3765-4e6a-960e-abc45307220d",
+        "watchapp": {
+            "watchface": false
+        }
+    },
+    "version": "1.0.0"
+}
