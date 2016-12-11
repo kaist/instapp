@@ -1,9 +1,8 @@
 
 var MAX_CHUNK_SIZE = 8000;  // From app_message_inbox_size_maximum()
-
-var URL="http://pebble-insta.tk";
-var TOKEN="q9cRBCrWmxjWq4xlNqKetAtcyhkTyajh";
-var NUMB=20;
+var TOKEN="";
+var NUMB=5;
+var URL="http://instapp.tk";
 
 function sendChunk(array, index, arrayLength) {
   // Determine the next chunk size
@@ -112,6 +111,7 @@ function downloadjson() {
   var request = new XMLHttpRequest();
   request.onload = function() {
     var resp=this.response;
+    console.log(resp);
     if (!resp.all)
       {
         Pebble.sendAppMessage({'state': 2});
@@ -140,7 +140,6 @@ Pebble.addEventListener('appmessage', function(e) {
   var d = e.payload;
 
   if(d.hasOwnProperty('update')) {
-    console.log('is update!'+d.update);
   // The RequestData key is present, read the value
   sendCard(d.update);
 }
@@ -165,8 +164,66 @@ Pebble.addEventListener('appmessage', function(e) {
   
 });
 
+Pebble.addEventListener('showConfiguration', function() {
+  var pr='1';
+  if (TOKEN==='') {pr='0';}
+  var url = URL+'/settings/'+parseInt(NUMB)+'/'+pr;
+  
+  
+
+  Pebble.openURL(url);
+});
+
+Pebble.addEventListener('webviewclosed', function(e) {
+
+  var configData = JSON.parse(decodeURIComponent(e.response));
+  if (configData.token){
+    localStorage.setItem('TOKEN',configData.token);
+    TOKEN=configData.token;
+  }
+  if (configData.sets){
+    localStorage.setItem('numb',parseInt(configData.sets));
+    NUMB=parseInt(configData.sets); 
+  }
+  if (configData.server){
+    localStorage.setItem('url',configData.server);
+    URL=configData.server;
+  }
+  if (configData.is_delete){
+    localStorage.clear();
+  }
+  if (configData.token)
+    {
+      downloadjson();
+    }
+  
+});
+
+
+
 Pebble.addEventListener('ready', function() {
+  if (!(localStorage.getItem('numb'))){
+    localStorage.setItem('numb',5);
+  }
+  NUMB=localStorage.getItem('numb');
+  
+  if (!(localStorage.getItem('TOKEN'))){
+    localStorage.setItem('TOKEN','');
+  }
+  TOKEN=localStorage.getItem("TOKEN"); 
+  
+  if (!(localStorage.getItem('url'))){
+    localStorage.setItem('url','http://instapp.tk');
+  }
+  URL=localStorage.getItem("url");   
+  if (TOKEN === '') {
+     Pebble.sendAppMessage({'state': 2});
+    
+      }
+  else{  
+
   downloadjson();
+  }
   
   
 });
