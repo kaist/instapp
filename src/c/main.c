@@ -318,15 +318,18 @@ static void window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(window_layer);
 
-  load_text = text_layer_create(grect_inset(bounds, GEdgeInsets(20, 0)));
+  load_text = text_layer_create(grect_inset(bounds, GEdgeInsets(40, 0)));
   text_layer_set_text(load_text, "Loading timeline...");
   text_layer_set_text_alignment(load_text, GTextAlignmentCenter);
   text_layer_set_background_color(load_text, GColorClear);
   text_layer_set_text_color(load_text, GColorWhite);
   text_layer_set_font(load_text, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
   layer_add_child(window_layer, text_layer_get_layer(load_text));
-  
+  #if defined(PBL_RECT)    
   loading_bitmap_layer = bitmap_layer_create(GRect(0, 50, 144, 144)); 
+  #else
+  loading_bitmap_layer = bitmap_layer_create(GRect(0, 50, 180, 144));  
+  #endif
   layer_add_child(window_layer, bitmap_layer_get_layer(loading_bitmap_layer));  
   
   loading_bitmap = gbitmap_create_with_resource(RESOURCE_ID_ICON_LOADING);
@@ -360,39 +363,76 @@ void handle_init(void) {
   text_window = window_create();
   window_set_background_color(text_window,GColorDukeBlue);  
   Layer *text_layer = window_get_root_layer(text_window); 
-  
+  #if defined(PBL_RECT)   
   st_text = text_layer_create(GRect(5, 127, 125, 136));
   text_layer_set_text_alignment(st_text, GTextAlignmentLeft);
+  #else
+   st_text = text_layer_create(GRect(0, 127, 180, 136));
+  text_layer_set_text_alignment(st_text, GTextAlignmentCenter); 
+  
+  #endif
   text_layer_set_background_color(st_text, GColorClear);
   text_layer_set_text_color(st_text, GColorWhite);
   text_layer_set_font(st_text, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
-  
+  #if defined(PBL_RECT) 
   like_text = text_layer_create(GRect(5, 145, 125, 168));
   text_layer_set_text_alignment(like_text, GTextAlignmentLeft);
+  #else
+  like_text = text_layer_create(GRect(0, 160, 180, 175));
+  text_layer_set_text_alignment(like_text, GTextAlignmentCenter);
+  #endif
+  
   text_layer_set_background_color(like_text, GColorClear);
   text_layer_set_text_color(like_text, GColorWhite);
   text_layer_set_font(like_text, fonts_get_system_font(FONT_KEY_GOTHIC_14));  
-  
+  #if defined(PBL_RECT)   
   dates_text = text_layer_create(GRect(5, 145, 120, 168));
   text_layer_set_text_alignment(dates_text, GTextAlignmentRight);
+  #else
+  dates_text = text_layer_create(GRect(0, 145, 180, 168));
+  text_layer_set_text_alignment(dates_text, GTextAlignmentCenter); 
+  
+  #endif
   text_layer_set_background_color(dates_text, GColorClear);
   text_layer_set_text_color(dates_text, GColorWhite);
   text_layer_set_font(dates_text, fonts_get_system_font(FONT_KEY_GOTHIC_14)); 
   
-  
+  #if defined(PBL_RECT)    
   up_bitmap_layer = bitmap_layer_create(GRect(87, 15, 99, 22)); 
+  #else
+  up_bitmap_layer = bitmap_layer_create(GRect(110, 40, 122, 47));   
+  
+  #endif
+  
+
   layer_add_child(window_layer, bitmap_layer_get_layer(up_bitmap_layer)); 
-  
+
+  #if defined(PBL_RECT)  
   down_bitmap_layer = bitmap_layer_create(GRect(87, 95, 99, 102)); 
-  layer_add_child(window_layer, bitmap_layer_get_layer(down_bitmap_layer));  
+  #else
+  down_bitmap_layer = bitmap_layer_create(GRect(110, 75, 122, 82));   
+  #endif
+
+    layer_add_child(window_layer, bitmap_layer_get_layer(down_bitmap_layer));    
+ 
   
   
+  #if defined(PBL_ROUND)
+    main_bitmap_layer = bitmap_layer_create(GRect(20, 5, 140, 125)); 
+  #else   
+    main_bitmap_layer = bitmap_layer_create(GRect(5, 5, 125, 125));
+  #endif
   
-  main_bitmap_layer = bitmap_layer_create(GRect(5, 5, 125, 125));
   layer_add_child(window_layer, bitmap_layer_get_layer(main_bitmap_layer));
-  
+  #if defined(PBL_RECT)   
   action_bitmap_layer = bitmap_layer_create(GRect(87, 45, 99, 75));
-  layer_add_child(window_layer, bitmap_layer_get_layer(action_bitmap_layer)); 
+  #else
+  action_bitmap_layer = bitmap_layer_create(GRect(110, 50, 122, 80));  
+  #endif
+  
+ 
+    layer_add_child(window_layer, bitmap_layer_get_layer(action_bitmap_layer)); 
+
  
 
   
@@ -412,16 +452,26 @@ void handle_init(void) {
   down_bitmap = gbitmap_create_with_resource(RESOURCE_ID_ICON_DOWN);
   bitmap_layer_set_compositing_mode(down_bitmap_layer, GCompOpSet);
   bitmap_layer_set_bitmap(down_bitmap_layer, down_bitmap);   
-  
+  #if defined(PBL_RECT)      
   info_text = text_layer_create(GRect(5, 5, 120, 20));
   text_layer_set_text_alignment(info_text, GTextAlignmentLeft);
+  #else
+  info_text = text_layer_create(GRect(0, 20, 180, 35));
+  text_layer_set_text_alignment(info_text, GTextAlignmentCenter);  
+  #endif
   text_layer_set_background_color(info_text, GColorClear);
   text_layer_set_text_color(info_text, GColorWhite);
   text_layer_set_font(info_text, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD)); 
   layer_add_child(text_layer, text_layer_get_layer(info_text));
-
+  #if defined(PBL_RECT)      
   caption_text = text_layer_create(GRect(5, 30, 140, 140));
   text_layer_set_text_alignment(caption_text, GTextAlignmentLeft);
+  #else
+  GRect bounds = layer_get_bounds(window_layer); 
+  caption_text = text_layer_create(grect_inset(bounds, GEdgeInsets(50, 10)));
+  text_layer_set_text_alignment(caption_text, GTextAlignmentLeft);  
+  #endif
+  
   text_layer_set_background_color(caption_text, GColorClear);
   text_layer_set_text_color(caption_text, GColorWhite);
   text_layer_set_font(caption_text, fonts_get_system_font(FONT_KEY_GOTHIC_14)); 
