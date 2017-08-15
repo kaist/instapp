@@ -2,7 +2,7 @@
 var MAX_CHUNK_SIZE = 8000;  // From app_message_inbox_size_maximum()
 var TOKEN="";
 var NUMB=5;
-var URL="http://instapp.tk";
+var URL="http://insta.timing.today";
 
 function sendChunk(array, index, arrayLength) {
   // Determine the next chunk size
@@ -213,7 +213,7 @@ Pebble.addEventListener('ready', function() {
   TOKEN=localStorage.getItem("TOKEN"); 
   
   if (!(localStorage.getItem('url'))){
-    localStorage.setItem('url','http://instapp.tk');
+    localStorage.setItem('url','http://insta.timing.today');
   }
   URL=localStorage.getItem("url");   
   if (TOKEN === '') {
