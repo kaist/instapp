@@ -44,12 +44,12 @@ urls = [
 
 
 
-  
-  
+
+
 ]
 
 
-render = web.template.render(pth+'templ/',cache=True)
+render = web.template.render(f'{pth}templ/', cache=True)
 
 
 class settings:
@@ -59,10 +59,9 @@ class settings:
 		return render.settings(sets=int(sets),is_new=int(is_new))
 class login:
 	def POST(self):
-		web.header('Access-Control-Allow-Origin', '*')		
+		web.header('Access-Control-Allow-Origin', '*')
 		i=web.input()
-		l=insta.login(i.login,i.passw)
-		if l:
+		if l := insta.login(i.login, i.passw):
 			return json.dumps({'token':l,'login':True})
 		else:
 			return json.dumps({'token':'','login':False})			
@@ -88,15 +87,15 @@ class get_json:
 				ulikes.append(x[4])	
 				dates.append(x[5])											
 
-			d={}
-			d['likes']=likes
-			d['all']=len(likes)
-			d['names']=names
-			d['texts']=texts
-			d['lids']=lids
-			d['ulikes']=ulikes
-			d['dates']=dates
-
+			d = {
+			    'likes': likes,
+			    'all': len(likes),
+			    'names': names,
+			    'texts': texts,
+			    'lids': lids,
+			    'ulikes': ulikes,
+			    'dates': dates,
+			}
 			return json.dumps(d)
 		except:
 			return json.dumps({'all':0})
@@ -105,7 +104,7 @@ class images:
 	def GET(self,token,numb):
 		web.header('Access-Control-Allow-Origin', '*')
 		web.header('Content-type','image/png')
-		return open(pth+'data/'+token+'/'+str(numb)+'.png','rb').read()
+		return open(f'{pth}data/{token}/{str(numb)}.png', 'rb').read()
 		
 
 app = web.application(urls, globals())
