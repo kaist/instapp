@@ -32,24 +32,24 @@ def pretty_date(time=False):
 		if second_diff < 10:
 			return "just now"
 		if second_diff < 60:
-			return str(second_diff) + " seconds ago"
+			return f"{str(second_diff)} seconds ago"
 		if second_diff < 120:
 			return "a minute ago"
 		if second_diff < 3600:
-			return str(second_diff / 60) + " minutes ago"
+			return f"{str(second_diff / 60)} minutes ago"
 		if second_diff < 7200:
 			return "an hour ago"
 		if second_diff < 86400:
-			return str(second_diff / 3600) + " hours ago"
+			return f"{str(second_diff / 3600)} hours ago"
 	if day_diff == 1:
 		return "Yesterday"
 	if day_diff < 7:
-		return str(day_diff) + " days ago"
+		return f"{str(day_diff)} days ago"
 	if day_diff < 31:
-		return str(day_diff / 7) + " weeks ago"
+		return f"{str(day_diff / 7)} weeks ago"
 	if day_diff < 365:
-		return str(day_diff / 30) + " months ago"
-	return str(day_diff / 365) + " years ago"
+		return f"{str(day_diff / 30)} months ago"
+	return f"{str(day_diff / 365)} years ago"
 
 
 def login(username,password):
@@ -57,16 +57,16 @@ def login(username,password):
 	s.cookies.update({'sessionid': '', 'mid': '', 'ig_pr': '1','ig_vw': '1920', 'csrftoken': '','s_network': '', 'ds_user_id': ''})
 	login_post = {'username': username,'password': password}
 	s.headers.update({'Accept-Encoding': 'gzip, deflate',
-			'Accept-Language': 'ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4',
-			'Connection': 'keep-alive',
-			'Content-Length': '0',
-			'Host': 'www.instagram.com',
-			'Origin': 'https://www.instagram.com',
-			'Referer': 'https://www.instagram.com/',
-			'User-Agent': ("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 "
-                "(KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36"),
-			'X-Instagram-AJAX': '1',
-			'X-Requested-With': 'XMLHttpRequest'})
+	'Accept-Language': 'ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4',
+	'Connection': 'keep-alive',
+	'Content-Length': '0',
+	'Host': 'www.instagram.com',
+	'Origin': 'https://www.instagram.com',
+	'Referer': 'https://www.instagram.com/',
+	'User-Agent': ("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 "
+	"(KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36"),
+	'X-Instagram-AJAX': '1',
+	'X-Requested-With': 'XMLHttpRequest'})
 	r = s.get('https://www.instagram.com/')
 	s.headers.update({'X-CSRFToken': r.cookies['csrftoken']})
 	time.sleep(3 * random.random())
@@ -80,9 +80,7 @@ def login(username,password):
 		r = s.get('https://www.instagram.com/')
 		finder = r.text
 		if username not in finder :return False
-		d={}
-		for x in login.cookies.keys():
-			d[x]=login.cookies[x]
+		d = {x: login.cookies[x] for x in login.cookies.keys()}
 		try:
 			os.mkdir(pth+csrftoken)
 		except:
@@ -97,20 +95,20 @@ def like(token,lid):
 	s = requests.Session()
 	s.cookies.update(c)
 	s.headers.update({'Accept-Encoding': 'gzip, deflate',
-				'Accept-Language': 'ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4',
-				'Connection': 'keep-alive',
-				'Content-Length': '0',
-				'Host': 'www.instagram.com',
-				'Origin': 'https://www.instagram.com',
-				'Referer': 'https://www.instagram.com/',
-				'User-Agent': ("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 "
-           	  	   "(KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36"),
-				'X-Instagram-AJAX': '1',
-				'X-Requested-With': 'XMLHttpRequest'})
+	'Accept-Language': 'ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4',
+	'Connection': 'keep-alive',
+	'Content-Length': '0',
+	'Host': 'www.instagram.com',
+	'Origin': 'https://www.instagram.com',
+	'Referer': 'https://www.instagram.com/',
+	'User-Agent': ("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 "
+	"(KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36"),
+	'X-Instagram-AJAX': '1',
+	'X-Requested-With': 'XMLHttpRequest'})
 	s.headers.update({'content-type':'application/x-www-form-urlencoded'})
-	s.headers.update({'path':'/web/likes/'+str(lid)+'/like/'})
+	s.headers.update({'path': f'/web/likes/{str(lid)}/like/'})
 	s.headers.update({'x-csrftoken':c['csrftoken']})
-	re=s.post('https://www.instagram.com/web/likes/%s/like/'%(lid))
+	re = s.post(f'https://www.instagram.com/web/likes/{lid}/like/')
 
 
 

@@ -41,8 +41,7 @@ def login():
     response.headers['Access-Control-Allow-Origin'] = '*'
     login = request.forms.get('login')
     passw = request.forms.get('passw')
-    l=insta.login(login,passw)
-    if l:
+    if l := insta.login(login, passw):
         return json.dumps({'token':l,'login':True})
     else:
         return json.dumps({'token':'','login':False})
@@ -70,14 +69,15 @@ def get_json(token,numb):
             ulikes.append(x[4])
             dates.append(x[5])
 
-        d={}
-        d['likes']=likes
-        d['all']=len(likes)
-        d['names']=names
-        d['texts']=texts
-        d['lids']=lids
-        d['ulikes']=ulikes
-        d['dates']=dates
+        d = {
+            'likes': likes,
+            'all': len(likes),
+            'names': names,
+            'texts': texts,
+            'lids': lids,
+            'ulikes': ulikes,
+            'dates': dates,
+        }
 
         return json.dumps(d)
     except:
@@ -87,7 +87,7 @@ def get_json(token,numb):
 def data(token,numb):
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.content_type = 'image/png'
-    return open(pth+'data/'+token+'/'+str(numb)+'.png','rb').read()
+    return open(f'{pth}data/{token}/{str(numb)}.png', 'rb').read()
 
 
 
